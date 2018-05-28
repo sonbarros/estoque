@@ -18,9 +18,14 @@ Route::get('/', function () {
 */
 
 Route::get('/produtos', 'ProdutoController@listar');
-
 Route::get('/produtos/detalhes/{id},{nome}', 'ProdutoController@mostrarDetalhesProduto');
+Route::get('/produtos/novo', 'ProdutoController@novo');
+Route::post('produtos/adiciona', 'ProdutoController@adiciona');
 
+
+/*
+    direciona para pagina principal
+ */
 Route::get('/', function(){
     return 'O Senhor é o meu pastor';
 });

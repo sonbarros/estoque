@@ -23,7 +23,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "estoque\\": "app/"
+            "app\\": "app/"
         }
     },
     "autoload-dev": {

@@ -1,6 +1,19 @@
 @extends('layout/principal')
 
 @section('conteudo')
+
+    <!--
+        apresenta uma mensagem de sucesso ao concluir um cadastro
+    -->
+    @if(old('nome'))
+    <div class="alert alert-success">
+        <strong>Sucesso!!</strong> O produto {{ old('nome') }} foi adicionado com sucesso!
+    </div>
+    @endif
+
+    <!--
+        Lista os produtos
+    -->
     @if(empty($produtos))
     <div class='alert alert-danger' role='alert'>Você não tem nenhum produto cadastrado.</div>
 
@@ -23,4 +36,6 @@
             Um ou menos itens no estoque
         </span>
     </h4>
+
+
 @stop

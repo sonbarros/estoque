@@ -1,6 +1,6 @@
 <?php
 
-namespace estoque\Http\Controllers;
+namespace app\Http\Controllers;
 
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
