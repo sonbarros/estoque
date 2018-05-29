@@ -20,7 +20,10 @@ Route::get('/', function () {
 Route::get('/produtos', 'ProdutoController@listar');
 Route::get('/produtos/detalhes/{id},{nome}', 'ProdutoController@mostrarDetalhesProduto');
 Route::get('/produtos/novo', 'ProdutoController@novo');
-Route::post('produtos/adiciona', 'ProdutoController@adiciona');
+Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
+Route::get('/produtos/remove/{id}', 'ProdutoController@remover');
+Route::get('/produtos/editar/{id}', 'ProdutoController@editar');
+Route::post('/produtos/editar/salvar', 'ProdutoController@update');
 
 
 /*

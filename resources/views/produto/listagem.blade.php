@@ -9,6 +9,13 @@
     <div class="alert alert-success">
         <strong>Sucesso!!</strong> O produto {{ old('nome') }} foi adicionado com sucesso!
     </div>
+
+    @elseif(old('atualiza')) 
+
+    <div class="alert alert-success">
+        <strong>Sucesso!!</strong> O produto {{old('atualiza')}} foi atualizado com sucesso!
+    </div>
+
     @endif
 
     <!--
@@ -25,7 +32,9 @@
                 <td>{{ $value->nome }}</td>
                 <td>{{ $value->descricao }}</td>
                 <td>{{ $value->quantidade }}</td>
-                <td><a href='/produtos/detalhes/{{ $value->id }} ,nomeExemplo'>Visualizar</a></td>
+                <td><a href='/produtos/detalhes/{{$value->id}},nomeExemplo'><span class="glyphicon glyphicon-search"></span></a></td>
+                <td><a href='/produtos/remove/{{$value->id}}'><span class="glyphicon glyphicon-trash"></span></a></td>
+                <td><a href='/produtos/editar/{{$value->id}}'><span class="glyphicon glyphicon-pencil"></span></a></td>
             </tr>
             @endforeach
         </table>

@@ -4,12 +4,13 @@ namespace app\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use app\produto;
 
 class ProdutoController extends Controller
 {
     public function listar(){
         
-        $produtos = DB::select('select * from produtos');
+        $produtos = Produto::all();
         //dd($produtos);
         
         return view('produto/listagem')->with('produtos', $produtos);
@@ -19,10 +20,10 @@ class ProdutoController extends Controller
     public function mostrarDetalhesProduto($id, $nome){
         
         // o parametro $id é o valor enviado na request, nesse caso sem o nome do parametro request/1,textoExemplo
-        $produto = DB::select('select * from produtos where id = ?', [$id]); // o segundo parametro subtituirá o id   
+        $produto = Produto::find($id);
 
         //return $nome;
-        return view('produto/detalhes')->with('p', $produto[0]);
+        return view('produto/detalhes')->with('p', $produto);
          
     }
 
@@ -34,11 +35,25 @@ class ProdutoController extends Controller
         // pegar as informações no formulario 
         // salvar no banco de dados
         
-        $nomeProduto = $request->nome;
-        $quantidade = $request->quantidade;
-        $descricao = $request->descricao;
+        $params = $request->all();
         
-        DB::insert('insert into produtos(nome, quantidade, descricao) values (?, ?, ?)', array($nomeProduto, $quantidade, $descricao));
+
+        $produto = new Produto($params);
+        $produto->save();
+        /*
+            o metodo create() abaixo é uma outra forma de
+            inserir os dados no banco, tera o mesmo efeito
+            do metodo save()
+         */
+        //$produto =  $produto->create($params);
+        
+        /*
+        $produto->nome = $request->nome;
+        $produto->quantidade = $request->quantidade;
+        $produto->descricao = $request->descricao;
+        */
+        
+         // metodo da classe Model
         
         /*
             reedirecionando para URI
@@ -58,8 +73,39 @@ class ProdutoController extends Controller
 
         /*
             retornando uma view
+            nesse exemplo não vou retornar a view, mais direcionar novamente para
+            a propria lista
          */
         //return view('produto/adicionado')->with('nomeProduto', $nomeProduto);
+    }
+
+    public function remover($id){
+        $produto = Produto::find($id);
+        $produto->delete();
+        //return redirect('/produtos'); // redireciona para request
+
+        /*
+            Redirecionamento para metodos
+         */
+        return redirect()->action('ProdutoController@listar');
+    }
+
+    public function editar($id){
+        $produto = Produto::find($id);
+        //return $produto->nome;
+        return view('produto/formulario')->with('produto', $produto);
+    }
+
+    public function update(Request $request){
+        //$params = $request->all();
+        //rrturn $param;
+        $produto = Produto::find($request->id);
+        $produto->nome = $request->nome;
+        $produto->quantidade = $request->quantidade;
+        $produto->descricao = $request->descricao;
+        $produto->save();
+
+        return redirect()->action('ProdutoController@listar')->withInput(['atualiza' => $produto->nome]);
     }
 }
 
