@@ -5,6 +5,7 @@ namespace app\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use app\produto;
+use app\Http\Requests\ProdutoRequest;
 
 class ProdutoController extends Controller
 {
@@ -31,7 +32,7 @@ class ProdutoController extends Controller
         return view('produto/formulario');
     }
 
-    public function adiciona(Request $request){
+    public function adiciona(Request $request, ProdutoRequest $produtoRequest){
         // pegar as informações no formulario 
         // salvar no banco de dados
         
@@ -103,6 +104,7 @@ class ProdutoController extends Controller
         $produto->nome = $request->nome;
         $produto->quantidade = $request->quantidade;
         $produto->descricao = $request->descricao;
+        $produto->tamanho = $request->tamanho;
         $produto->save();
 
         return redirect()->action('ProdutoController@listar')->withInput(['atualiza' => $produto->nome]);

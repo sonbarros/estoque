@@ -32,6 +32,7 @@
                 <td>{{ $value->nome }}</td>
                 <td>{{ $value->descricao }}</td>
                 <td>{{ $value->quantidade }}</td>
+                <td>{{ $value->tamanho }}</td>
                 <td><a href='/produtos/detalhes/{{$value->id}},nomeExemplo'><span class="glyphicon glyphicon-search"></span></a></td>
                 <td><a href='/produtos/remove/{{$value->id}}'><span class="glyphicon glyphicon-trash"></span></a></td>
                 <td><a href='/produtos/editar/{{$value->id}}'><span class="glyphicon glyphicon-pencil"></span></a></td>
