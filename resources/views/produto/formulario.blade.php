@@ -2,9 +2,27 @@
 
 @section('conteudo')
 
+<!-- Esse formulario é utilizado tambem pelo metodo editar, a diferença
+é que ao ser chamado pelo metodo editar é enviado o objeto $produto. 
+obs.: Quando o metodo editar é chamado devido validação de dados
+é necessario alimentar produtos com a request antiga old()  --> 
+
 <h1>Novo Produto</h1>
 
 @if(count($errors) > 0)
+    @if(isset($produto['nome']))
+
+        <?php 
+
+            $produto['nome'] = old('nome');
+            $produto['valor'] = old('valor');
+            $produto['quantidade'] = old('quantidade');
+            $produto['tamanho'] = old('tamanho');
+            $produto['descricao'] = old('descricao');
+        ?>
+
+    @endif 
+    
     <div class="alert alert-danger">
         <ul>
             @foreach($errors->all() as $error)
@@ -14,13 +32,12 @@
     </div>
 @endif
 
-<!-- Esse formulario é utilizado tambem pelo metodo editar, a diferença
-é que ao ser chamado pelo metodo editar é enviado o objeto $produto --> 
+
 
 <form  @if(empty($produto))action="adiciona" @else action="salvar" @endif method="post">
     <input type="hidden" name="_token" value=" {{ csrf_token() }}">
     
-    @if(!empty($produto)) <input type="hidden" name="id" value=" {{ $produto->id }}">@endif
+    @if(!empty($produto)) <input type="hidden" name="id" value=" {{ $produto->id  }}">@endif
     
     <div class="form-group">
         <label>Nome produto</label>

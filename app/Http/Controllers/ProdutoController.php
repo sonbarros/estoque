@@ -97,7 +97,7 @@ class ProdutoController extends Controller
         return view('produto/formulario')->with('produto', $produto);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, ProdutoRequest $requestProduto){
         //$params = $request->all();
         //rrturn $param;
         $produto = Produto::find($request->id);
@@ -109,6 +109,7 @@ class ProdutoController extends Controller
 
         return redirect()->action('ProdutoController@listar')->withInput(['atualiza' => $produto->nome]);
     }
+    
 }
 
 
